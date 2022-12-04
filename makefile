@@ -1,4 +1,4 @@
-.PHONY = run test init testo wrun
+.PHONY = run test init testo wrun push
 
 day != date +%d
 
@@ -30,3 +30,6 @@ src/bin/$(day).rs:
 init: puzzles/$(day).md inputs/$(day).txt src/bin/$(day).rs
 	env PAGER="less -r" glow -p puzzles/$(day).md
 	
+push:
+	git commit -am "add day $(day)"
+	git push
