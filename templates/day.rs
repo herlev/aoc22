@@ -10,7 +10,7 @@ fn part2(input: &str) -> u32 {
 
 fn main() {
   let input = include_str!("../../inputs/$DAY.txt");
-  let tinput = "";
+  let tinput = "$tinput";
   println!("part1: {}", part1(tinput));
   println!("part1: {}", part1(input));
   // println!("part2: {}", part2(tinput));

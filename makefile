@@ -25,7 +25,7 @@ inputs/$(day).txt:
 
 # Copy template file
 src/bin/$(day).rs:
-	env DAY=$(day) envsubst < templates/day.rs > $@
+	./gen-day.sh $(day)
 
 init: puzzles/$(day).md inputs/$(day).txt src/bin/$(day).rs
 	env PAGER="less -r" glow -p puzzles/$(day).md
