@@ -6,8 +6,8 @@ struct Range {
 }
 
 impl Range {
-  fn FromStr(s: &str) -> Range {
-    let mut a = s.split("-");
+  fn from_str(s: &str) -> Range {
+    let mut a = s.split('-');
     Range {
       start: a.next().unwrap().parse().unwrap(),
       end: a.next().unwrap().parse().unwrap(),
@@ -24,16 +24,16 @@ impl Range {
 fn part1(input: &str) -> u32 {
   input
     .lines()
-    .map(|line| line.split(",").map(Range::FromStr).collect::<Vec<_>>())
-    .filter(|v| v[0].is_fully_contained_in(&v[1]) || v[1].is_fully_contained_in(&v[0]))
+    .map(|line| line.split(',').map(Range::from_str).collect_tuple().unwrap())
+    .filter(|(l, r)| l.is_fully_contained_in(r) || r.is_fully_contained_in(l))
     .count() as u32
 }
 
 fn part2(input: &str) -> u32 {
   input
     .lines()
-    .map(|line| line.split(",").map(Range::FromStr).collect::<Vec<_>>())
-    .filter(|v| v[0].overlaps(&v[1]))
+    .map(|line| line.split(',').map(Range::from_str).collect_tuple().unwrap())
+    .filter(|(l, r)| l.overlaps(r))
     .count() as u32
 }
 
@@ -49,11 +49,4 @@ fn main() {
   println!("part1: {}", part1(input));
   println!("part2: {}", part2(tinput));
   println!("part2: {}", part2(input));
-}
-
-#[test]
-fn test() {
-  let input = "";
-  // assert_eq!(part1(input), 0);
-  // assert_eq!(part2(input), 0);
 }
