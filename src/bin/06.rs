@@ -9,11 +9,26 @@ fn solve(input: &str, win_size: usize) -> u32 {
   panic!()
 }
 
+fn solve_iter(input: &str, win_size: usize) -> u32 {
+  input
+    .chars()
+    .collect::<Vec<_>>()
+    .windows(win_size)
+    .enumerate()
+    .skip_while(|(_, w)| w.iter().collect::<HashSet<_>>().len() != win_size)
+    .next()
+    .unwrap()
+    .0 as u32
+    + win_size as u32
+}
+
 fn part1(input: &str) -> u32 {
+  assert_eq!(solve_iter(input, 4), solve(input, 4));
   solve(input, 4)
 }
 
 fn part2(input: &str) -> u32 {
+  assert_eq!(solve_iter(input, 4), solve(input, 4));
   solve(input, 14)
 }
 
