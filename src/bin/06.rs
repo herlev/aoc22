@@ -15,8 +15,7 @@ fn solve_iter(input: &str, win_size: usize) -> u32 {
     .collect::<Vec<_>>()
     .windows(win_size)
     .enumerate()
-    .skip_while(|(_, w)| w.iter().collect::<HashSet<_>>().len() != win_size)
-    .next()
+    .find(|(_, w)| w.iter().collect::<HashSet<_>>().len() == win_size)
     .unwrap()
     .0 as u32
     + win_size as u32
