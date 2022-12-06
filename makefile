@@ -31,5 +31,6 @@ init: puzzles/$(day).md inputs/$(day).txt src/bin/$(day).rs
 	env PAGER="less -r" glow -p puzzles/$(day).md
 	
 push:
-	git commit -am "add day $(day)"
+	git add src/bin/$(day).rs
+	git commit -m "add day $(day)"
 	git push
