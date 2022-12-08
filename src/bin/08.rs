@@ -50,47 +50,21 @@ fn part1(input: &str) -> u32 {
 }
 
 fn calc_scenic_score(vx: usize, vy: usize, grid: &Vec<Vec<u8>>) -> u32 {
-  let val = grid[vy][vx];
   let h = grid.len();
   let w = grid[0].len();
-  let mut score = 1;
-  // right
-  let mut i = 0;
-  for x in (vx..w).skip(1) {
-    i += 1;
-    if val <= grid[vy][x] {
-      break;
-    }
-  }
-  score *= i;
-  // left
-  let mut i = 0;
-  for x in (0..vx).rev() {
-    i += 1;
-    if val <= grid[vy][x] {
-      break;
-    }
-  }
-  score *= i;
-  // up
-  let mut i = 0;
-  for y in (vy..h).skip(1) {
-    i += 1;
-    if val <= grid[y][vx] {
-      break;
-    }
-  }
-  score *= i;
-  // down
-  let mut i = 0;
-  for y in (0..vy).rev() {
-    i += 1;
-    if val <= grid[y][vx] {
-      break;
-    }
-  }
-  score *= i;
-  score
+  let get_tree_count = |tree_heights: &mut dyn Iterator<Item = u8>| {
+    tree_heights
+      .enumerate()
+      .skip(1)
+      .find_or_last(|&(_, v)| v >= grid[vy][vx])
+      .unwrap()
+      .0
+  };
+  // right // left // up // down
+  (get_tree_count(&mut (vx..w).map(|x| grid[vy][x]))
+    * get_tree_count(&mut (0..=vx).rev().map(|x| grid[vy][x]))
+    * get_tree_count(&mut (vy..h).map(|y| grid[y][vx]))
+    * get_tree_count(&mut (0..=vy).rev().map(|y| grid[y][vx]))) as u32
 }
 
 fn part2(input: &str) -> u32 {
@@ -100,13 +74,10 @@ fn part2(input: &str) -> u32 {
     .collect();
   let h = v.len();
   let w = v[0].len();
-  let mut m = 0;
-  for y in 1..(h - 1) {
-    for x in 1..(w - 1) {
-      m = max([m, calc_scenic_score(x, y, &v)]).unwrap();
-    }
-  }
-  m
+  iproduct!(1..(w - 1), 1..(h - 1))
+    .map(|(x, y)| calc_scenic_score(x, y, &v))
+    .max()
+    .unwrap()
 }
 
 fn main() {
