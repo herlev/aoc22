@@ -46,6 +46,19 @@ impl<T> Point2<T> {
   }
 }
 
+impl Point2<i32> {
+  pub fn neighbors(self) -> impl Iterator<Item = Point2<i32>> {
+    [Direction::Up, Direction::Down, Direction::Right, Direction::Left]
+      .into_iter()
+      .map(move |d| self + d.to_point())
+  }
+  pub fn neighbors_grid(self, w: usize, h: usize) -> impl Iterator<Item = Point2<i32>> {
+    self
+      .neighbors()
+      .filter(move |n| (0 as i32..w as i32).contains(&n.x) && (0 as i32..h as i32).contains(&n.y))
+  }
+}
+
 impl<T: num::traits::Signed> Point2<T> {
   pub fn signum(&self) -> Point2<T> {
     Point2::new(self.x.signum(), self.y.signum())
