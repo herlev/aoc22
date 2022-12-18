@@ -17,11 +17,11 @@ testo:
 
 # Download puzzle
 puzzles/$(day).md:
-	aoc read --overwrite -p puzzles/$(day).md
+	aoc read --day $(day) --overwrite -p puzzles/$(day).md
 	
 # Download puzzle input
 inputs/$(day).txt:
-	aoc download --overwrite -i inputs/$(day).txt
+	aoc download --day $(day) --overwrite -i inputs/$(day).txt
 
 # Copy template file
 src/bin/$(day).rs:
