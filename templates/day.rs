@@ -16,6 +16,10 @@ fn main() {
   println!("part1: {}", part1(input));
   // println!("part2: {}", part2(tinput));
   // println!("part2: {}", part2(input));
+  // assert_eq!(part1(tinput), 0);
+  // assert_eq!(part1(input), 0);
+  // assert_eq!(part2(tinput), 0);
+  // assert_eq!(part2(input), 0);
 }
 
 #[test]

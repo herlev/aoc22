@@ -7,6 +7,10 @@ edition = "2021"
 
 [dependencies]
 derive_more = "0.99.17"
+gen-iter = "0.2.1"
 itertools = "0.10.5"
+lazy_static = "1.4.0"
 lending-iterator = "0.1.6"
 num = "0.4.0"
+range_union_find = "0.4.3"
+regex = "1.7.0"
