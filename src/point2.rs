@@ -1,7 +1,7 @@
 use derive_more::{Add, AddAssign, Sub, SubAssign};
 use std::fmt;
 
-use crate::Direction;
+use crate::{Direction, DirectionDiag};
 
 #[derive(Add, AddAssign, Sub, SubAssign, Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub struct Point2<T> {
@@ -24,6 +24,20 @@ impl Point2<i32> {
       .into_iter()
       .map(move |d| self + d.to_point())
   }
+  pub fn neighbors8(self) -> impl Iterator<Item = Point2<i32>> {
+    [
+      DirectionDiag::Up,
+      DirectionDiag::Upleft,
+      DirectionDiag::Upright,
+      DirectionDiag::Down,
+      DirectionDiag::Downleft,
+      DirectionDiag::Downright,
+      DirectionDiag::Right,
+      DirectionDiag::Left,
+    ]
+    .into_iter()
+    .map(move |d| self + d.to_point())
+  }
   pub fn neighbors_grid(self, w: usize, h: usize) -> impl Iterator<Item = Point2<i32>> {
     self
       .neighbors()
@@ -34,6 +48,9 @@ impl Point2<i32> {
 impl<T: num::traits::Signed> Point2<T> {
   pub fn signum(&self) -> Point2<T> {
     Point2::new(self.x.signum(), self.y.signum())
+  }
+  pub fn abs(&self) -> Point2<T> {
+    Point2::new(self.x.abs(), self.y.abs())
   }
 }
 

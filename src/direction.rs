@@ -1,9 +1,10 @@
 use crate::Point2;
 
+#[derive(Clone)]
 pub enum Direction {
   Up,
-  Down,
   Right,
+  Down,
   Left,
 }
 
